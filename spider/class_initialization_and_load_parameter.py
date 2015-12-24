@@ -49,9 +49,17 @@ class InitializationAndLoadParameter(object):
         conf = ConfigParser.ConfigParser()
         conf.read(config_data_dir)
 
-        #[bio network]
+        #[data]
         seed_urls = conf.get("data", "seed_urls")
         logging.info("seed_urls:{0}".format(seed_urls))
+        seed_url_list = map(lambda seed_url: seed_url.strip(), seed_urls.split(","))
+        logging.info("seed_url_list:{0}".format(seed_url_list))
+        logging.info("type(seed_url_list):{0}".format(type(seed_url_list)))
+
+
+        crawl_layer_num = int(conf.get("data", "crawl_layer_num"))
+        logging.info("crawl_layer_num:{0}".format(crawl_layer_num))
+        logging.info("type(crawl_layer_num):{0}".format(type(crawl_layer_num)))
 
         #[basic]
         database_name = conf.get("basic", "database_name")
@@ -66,7 +74,7 @@ class InitializationAndLoadParameter(object):
         pyspark_app_name = conf.get("basic", "pyspark_app_name")
         logging.info("pyspark_app_name:{0}".format(pyspark_app_name))
 
-        return seed_urls, database_name, link_table_name, page_table_name, pyspark_app_name
+        return crawl_layer_num, seed_urls, database_name, link_table_name, page_table_name, pyspark_app_name
 
 
 ################################### PART3 CLASS TEST ##################################
