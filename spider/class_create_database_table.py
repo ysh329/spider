@@ -95,7 +95,9 @@ class CreateDatabaseTable(object):
                                 page_id INT(11) AUTO_INCREMENT PRIMARY KEY,
                                 page_title VARCHAR(200),
                                 page_url VARCHAR(200),
+                                page_html_doc TEXT,
                                 page_content TEXT,
+                                page_link_num INT(11),
                                 UNIQUE (page_url))""".format(page_table_name = page_table_name))
         #sqls.append("""CREATE INDEX page_id_idx ON {page_table_name}(page_id)""".format(page_table_name = page_table_name))
 
@@ -103,8 +105,10 @@ class CreateDatabaseTable(object):
         sqls.append("""CREATE TABLE IF NOT EXISTS {link_table_name}(
                                 link_id INT(11) AUTO_INCREMENT PRIMARY KEY,
                                 page1_url VARCHAR(200),
+                                page1_id INT(11),
                                 page1_title VARCHAR(200),
                                 page2_url VARCHAR(200),
+                                page2_id INT(11),
                                 page2_title VARCHAR(200),
                                 UNIQUE (link_id),
                                 CONSTRAINT link_record_id UNIQUE (page1_url, page2_url))""".format(link_table_name = link_table_name))
